@@ -1,0 +1,13 @@
+line_item,budget_usd,actual_usd,variance_usd,variance_pct
+Subscription Revenue,4500000,3800000,-700000,-15.6
+Professional Services,600000,400000,-200000,-33.3
+Total Revenue,5100000,4200000,-900000,-17.6
+Cost of Revenue,900000,870000,-30000,-3.3
+Gross Profit,4200000,3330000,-870000,-20.7
+Sales & Marketing,1200000,1380000,180000,15.0
+Research & Development,850000,820000,-30000,-3.5
+General & Administrative,450000,465000,15000,3.3
+Total Operating Expenses,2500000,2665000,165000,6.6
+Operating Income (EBIT),1700000,665000,-1035000,-60.9
+EBITDA,1950000,920000,-1030000,-52.8
+Net Income,1300000,490000,-810000,-62.3
