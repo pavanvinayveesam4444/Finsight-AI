@@ -1,9 +1,4 @@
 # FinSight AI — Financial Document Analyst
-**Live demo:** https://finsight-ai.streamlit.app ← PUT THIS ON LINE 2
-An AI-powered financial analyst that reads SEC 10-K filings and internal
-P&L data — answering plain-English questions with source citations and
-generating CFO-ready variance commentary in seconds.
----
 ## The Problem It Solves
 - Equity research analysts spend 4-6 hours manually reading SEC filings per
 company per earnings cycle. FinSight answers multi-document questions in seconds.
