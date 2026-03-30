@@ -5,9 +5,12 @@ import os
 
 load_dotenv()
 
+# Absolute path so the app finds the database no matter where it's launched from
+_PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 # Initialize clients
 openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-chroma_client = chromadb.PersistentClient(path="data/chroma_db")
+chroma_client = chromadb.PersistentClient(path=os.path.join(_PROJECT_ROOT, "data", "chroma_db"))
 
 
 def get_embedding(text: str) -> list:
@@ -68,21 +71,33 @@ def add_chunks_to_db(chunks: list, collection_name: str = "filings"):
 
 
 def search_db(query: str, n_results: int = 6,
-              ticker: str = None, collection_name: str = "filings"):
+              ticker: str = None, year: str = None,
+              collection_name: str = "filings"):
     """
     Search the vector database for chunks relevant to the query.
-    
+
     Args:
         query: The user's question
         n_results: How many chunks to retrieve
         ticker: Optional - filter to a specific company
+        year: Optional - filter to a specific filing year (e.g. '2025')
         collection_name: Which ChromaDB collection to search
     """
     collection = chroma_client.get_or_create_collection(collection_name)
     query_embedding = get_embedding(query)
-    
-    # Build filter if ticker specified
-    where = {"ticker": ticker} if ticker else None
+
+    # Build filter
+    filters = {}
+    if ticker:
+        filters["ticker"] = ticker
+    if year:
+        filters["year"] = year
+    if len(filters) == 1:
+        where = filters
+    elif len(filters) > 1:
+        where = {"$and": [{k: v} for k, v in filters.items()]}
+    else:
+        where = None
     
     results = collection.query(
         query_embeddings=[query_embedding],
@@ -92,6 +107,15 @@ def search_db(query: str, n_results: int = 6,
     )
     
     return results
+
+
+def clear_collection(collection_name: str = "filings"):
+    """Delete and recreate the collection to start fresh."""
+    try:
+        chroma_client.delete_collection(collection_name)
+        print(f"Cleared collection '{collection_name}'")
+    except Exception:
+        print(f"Collection '{collection_name}' did not exist, nothing to clear")
 
 
 def get_collection_stats(collection_name: str = "filings"):

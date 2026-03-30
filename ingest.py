@@ -5,7 +5,7 @@ After running, your vector database will be ready to query.
 """
 from ingestion.edgar_fetcher import fetch_filings
 from ingestion.parser import parse_all_filings_for_ticker
-from rag.vector_store import add_chunks_to_db, get_collection_stats
+from rag.vector_store import add_chunks_to_db, get_collection_stats, clear_collection
 
 
 # Companies to ingest
@@ -26,7 +26,11 @@ def run_ingestion():
     print(f"Filing type: {FILING_TYPE}")
     print(f"Years: {NUM_YEARS}")
     print("=" * 50)
-    
+
+    # Clear old chunks so improved parser chunks replace them cleanly
+    print("\nClearing existing database...")
+    clear_collection()
+
     for ticker in COMPANIES:
         print(f"\nProcessing {ticker}...")
         
