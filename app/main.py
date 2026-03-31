@@ -17,8 +17,8 @@ st.set_page_config(
 # Custom CSS for a cleaner look
 st.markdown("""
 <style>
-    .main-header { font-size: 3rem !important; font-weight: 700 !important; color: #1F2937; text-align: center; }
-    .sub-header { font-size: 1rem; color: #6B7280; margin-bottom: 2rem; text-align: center; }
+    .main-header { font-size: 2rem; font-weight: 700; color: #1F2937; }
+    .sub-header { font-size: 1rem; color: #6B7280; margin-bottom: 2rem; }
     .answer-box { background: #F9FAFB; border-left: 4px solid #7C3AED;
                   padding: 1rem; border-radius: 0 8px 8px 0; margin-top: 1rem; }
     .metric-card { background: #FFFFFF; border: 1px solid #E5E7EB;
@@ -27,7 +27,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # App header
-st.markdown('<h1 class="main-header">FinSight AI</h1>', unsafe_allow_html=True)
+st.markdown('<p class="main-header">FinSight AI</p>', unsafe_allow_html=True)
 st.markdown('<p class="sub-header">AI-powered financial document analyst — SEC Filings + FP&A Automation</p>', unsafe_allow_html=True)
 
 # Sidebar navigation
